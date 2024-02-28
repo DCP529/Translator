@@ -23,9 +23,9 @@ string Translate(string text)
     return textBuilder.ToString();
 }
 
-string Convert(string symbol)
+string? Convert(string? symbol)
 {
-    var keyValueLanguage = new Dictionary<string, string>()
+    var keyValueLanguage = new Dictionary<string, string?>()
     {
         { "а", "a" },
         { "б", "b" },
@@ -62,11 +62,13 @@ string Convert(string symbol)
         { "я", "ya" }
     };
 
-    var convertValue = keyValueLanguage.FirstOrDefault(x => x.Value == symbol.ToLower()).Key;
+    keyValueLanguage.TryGetValue(symbol, out var convertValue);
 
     if (convertValue == null)
     {
-        convertValue = keyValueLanguage.FirstOrDefault(x => x.Key == symbol.ToLower()).Value ?? symbol;
+        convertValue =
+            keyValueLanguage.FirstOrDefault(x => x.Key.Equals(symbol, StringComparison.CurrentCultureIgnoreCase))
+                .Value ?? symbol;
     }
 
     return convertValue;
