@@ -23,9 +23,9 @@ string Translate(string text)
     return textBuilder.ToString();
 }
 
-string? Convert(string? symbol)
+string? Convert(string symbol)
 {
-    var keyValueLanguage = new Dictionary<string, string?>()
+    var keyValueLanguage = new Dictionary<string, string>()
     {
         { "а", "a" },
         { "б", "b" },
