@@ -1,6 +1,43 @@
 ﻿using System.Text;
 
-var text = "ёбанный в рот того казино блять";
+var keyValueLanguage = new Dictionary<char, string>()
+{
+    { 'а', "a" },
+    { 'б', "b" },
+    { 'в', "v" },
+    { 'г', "g" },
+    { 'д', "d" },
+    { 'е', "e" },
+    { 'ё', "yo" },
+    { 'ж', "zh" },
+    { 'з', "z" },
+    { 'и', "i" },
+    { 'й', "i" },
+    { 'к', "k" },
+    { 'л', "l" },
+    { 'м', "m" },
+    { 'н', "n" },
+    { 'о', "o" },
+    { 'п', "p" },
+    { 'р', "r" },
+    { 'с', "s" },
+    { 'т', "t" },
+    { 'у', "u" },
+    { 'ф', "f" },
+    { 'х', "h" },
+    { 'ц', "ts" },
+    { 'ч', "ch" },
+    { 'ш', "sh" },
+    { 'щ', "shch" },
+    { 'ъ', "" },
+    { 'ы', "y" },
+    { 'ь', "" },
+    { 'э', "e" },
+    { 'ю', "yu" },
+    { 'я', "ya" }
+};
+
+var text = "ёбанный в рот того казино щлюха";
 
 Console.WriteLine("Было: " + text);
 
@@ -10,66 +47,24 @@ Console.WriteLine("Стало: " + text);
 
 string Translate(string text)
 {
-    var textListSymbol = text.ToCharArray();
-
     var textBuilder = new StringBuilder();
 
-    foreach (var item in textListSymbol)
+    foreach (var item in text)
     {
-        var convertSymbol = Convert(item.ToString());
+        var convertSymbol = Convert(char.ToLower(item));
         textBuilder.Append(convertSymbol);
     }
 
     return textBuilder.ToString();
 }
 
-string? Convert(string symbol)
+string Convert(char symbol)
 {
-    var keyValueLanguage = new Dictionary<string, string>()
-    {
-        { "а", "a" },
-        { "б", "b" },
-        { "в", "v" },
-        { "г", "g" },
-        { "д", "d" },
-        { "е", "e" },
-        { "ё", "yo" },
-        { "ж", "zh" },
-        { "з", "z" },
-        { "и", "i" },
-        { "й", "i" },
-        { "к", "k" },
-        { "л", "l" },
-        { "м", "m" },
-        { "н", "n" },
-        { "о", "o" },
-        { "п", "p" },
-        { "р", "r" },
-        { "с", "s" },
-        { "т", "t" },
-        { "у", "u" },
-        { "ф", "f" },
-        { "х", "h" },
-        { "ц", "ts" },
-        { "ч", "ch" },
-        { "ш", "sh" },
-        { "щ", "shch" },
-        { "ъ", "" },
-        { "ы", "y" },
-        { "ь", "" },
-        { "э", "e" },
-        { "ю", "yu" },
-        { "я", "ya" }
-    };
 
-    keyValueLanguage.TryGetValue(symbol, out var convertValue);
-
-    if (convertValue == null)
+    if (keyValueLanguage.TryGetValue(symbol, out var convertValue))
     {
-        convertValue =
-            keyValueLanguage.FirstOrDefault(x => x.Key.Equals(symbol, StringComparison.CurrentCultureIgnoreCase))
-                .Value ?? symbol;
+        return convertValue;
     }
 
-    return convertValue;
+    return symbol.ToString();
 }
